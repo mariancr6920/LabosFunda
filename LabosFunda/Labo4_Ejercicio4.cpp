@@ -21,6 +21,10 @@ int main ()
     {
         cout<<"La palabra ingresada es menor que 10 caracteres.";
     }
+    else if (caracteres==10)
+    {
+        cout<<"La palabra ingresada tiene exactamente 10 caracteres.";
+    }
     
     if (longitud==0)
     {
