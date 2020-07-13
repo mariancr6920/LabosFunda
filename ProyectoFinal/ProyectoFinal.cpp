@@ -14,48 +14,38 @@ float precio;
 float costoPorArt;
 };
 
-float lecturaDatos (int n, string cad);
+// Declarando funciones. 
+float lecturaDatos (int n, string cad, datos []);
 float calcularCosto (datos arr1[], int n);
 float despliegueDatos (datos arr1[], int n);
 float costoTotal(datos arr1[], int n);
 
-
-float lecturaDatos (int n, string cad)
+//Usuario ingresa datos.
+float lecturaDatos (int n, string cad, datos compra1[])
 {
-    
-    struct datos arr1[n];
-    int i; 
-
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
         cout<<"Articulo "<< i+1 <<endl;
         cout<<"Ingrese el nombre del articulo:"<<endl;
         getline(cin,cad,'\n');
-        strncpy(arr1[i].nombreArticul, cad.c_str( ), longCad);
-        arr1[i].nombreArticul[longCad]='\0';
+        strncpy(compra1[i].nombreArticul, cad.c_str( ), longCad);
+        compra1[i].nombreArticul[longCad]='\0';
         cout<<"Ingrese el precio unitario del articulo:"<<endl;
-        cin>> arr1[i].precio;
+        cin>> compra1[i].precio;
         cout<<"Ingrese la cantidad de articulos: "<<endl;
-        cin>> arr1[i].cantidad;
+        cin>> compra1[i].cantidad;
         cin.ignore(100, '\n');
-
     }
-   calcularCosto (arr1, n);
-   despliegueDatos(arr1, n);
-   costoTotal (arr1, n); 
 }
-
-
-    
+//Calculo de costo por articulo.
 float calcularCosto (datos arr1[], int n)
   {
     for (int i = 0; i < n; i++)
     {
         arr1[i].costoPorArt=arr1[i].precio*arr1[i].cantidad;
     }
-
   }
-
+//Se despliegan los datos.
 float despliegueDatos (datos arr1[], int n)
     {
         
@@ -71,30 +61,17 @@ float despliegueDatos (datos arr1[], int n)
            cout<<"Cantidad de articulos: " <<arr1[i].cantidad<<endl;
            cout<<"Costo por articulo: "<<arr1[i].costoPorArt<<endl;
            cout<<endl;
-
         }
-
     }
-
-
-float costoTotal(datos arr1[], int n)
+//Calculo de costo total de la compra. 
+float costoTotal(datos compra[], int n)
 {
-    float costoFinal;
-    costoFinal = 0;
-
+    float costoFinal = 0;
     for (int i = 0; i < n; i++)
     {
-        costoFinal+=arr1[i].costoPorArt;
+        costoFinal+=compra[i].costoPorArt;
     }
-
-    cout<<"COSTO TOTAL DE LA COMPRA"<<endl;
-    if (costoFinal<1)
-    cout<<costoFinal<<" centavos."<<endl;
-    else if (costoFinal>1)
-    cout<<costoFinal<<" dolares."<<endl;
-    else if (costoFinal=1)
-    cout<<costoFinal<<" dolar."<<endl;
-
+    return costoFinal;
 }
 
 int main (void)
@@ -105,12 +82,17 @@ int main (void)
     cout<<"SISTEMA DE FACTURACION"<<endl;
     cout<<"Ingrese la cantidad de articulos comprados: "<<endl;
     cin>>n;
-    
+
+    datos compra[n];
+
     cin.ignore(100,'\n');
    
-   lecturaDatos(n,cad);
+    lecturaDatos(n, cad, compra);
+    calcularCosto(compra,n);
+    despliegueDatos(compra,n); 
+    cout<<"El costo total es: $" <<costoTotal (compra, n);
 
-   return 0;
+    return 0;
 
 }
 
